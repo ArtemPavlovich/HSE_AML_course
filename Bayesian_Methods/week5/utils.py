@@ -4,7 +4,7 @@ import tensorflow.keras as keras
 from tensorflow.keras import Input
 from tensorflow.keras.layers import Dense, Lambda, InputLayer, concatenate, Activation, Flatten, Reshape
 from tensorflow.keras.layers import BatchNormalization, Conv2D, Conv2DTranspose
-from keras.models import Model, Sequential
+from tensorflow.keras.models import Model, Sequential
 
 
 def create_encoder(input_dims, base_filters=64, layers=2, latent=512):
