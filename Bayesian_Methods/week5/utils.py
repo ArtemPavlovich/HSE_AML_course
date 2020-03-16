@@ -1,5 +1,4 @@
 import numpy as np
-%tensorflow_version 2.x
 import tensorflow as tf
 import tensorflow.keras as keras
 from tensorflow.keras import Input
