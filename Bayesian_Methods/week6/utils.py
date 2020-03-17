@@ -1,3 +1,4 @@
+import subprocess
 import numpy as np
 import tensorflow as tf
 import tensorflow.keras as keras
@@ -119,6 +120,6 @@ def download_and_get_params(option=1):
 
     params = parse_name(filename)
 
-    !wget $url -O $filename
+    subprocess.run('wget', url, '-O', filename)
 
     return params, filename
