@@ -108,7 +108,7 @@ weights_options = {1:
 def parse_name(weight_name):
     split = weight_name.split('_')
     image_size = int(split[2][3:])
-    base_filters = int(split[3][5:])
+    base_filters = int(split[3][4:])
     layers = int(split[4][:-6])
     latent_size = int(split[5][:-5])
     return image_size, base_filters, layers, latent_size
