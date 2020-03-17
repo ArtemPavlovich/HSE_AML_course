@@ -120,6 +120,6 @@ def download_and_get_params(option=1):
 
     params = parse_name(filename)
 
-    subprocess.run('wget', url, '-O', filename)
+    subprocess.run(['wget', url, '-O', filename])
 
     return params, filename
