@@ -17,7 +17,7 @@ def create_encoder(input_dims, base_filters=64, layers=2, latent=512):
     for i in range(layers):
         encoder.add(Conv2D(filters=base_filters * 2**i, kernel_size=(5, 5),
                            strides=(2, 2), padding='same', use_bias=False, activation='relu'))
-        encoder.add(BatchNormalization(axis=3))
+#         encoder.add(BatchNormalization(axis=3))
     encoder.add(Reshape([w * h * c]))
     encoder.add(Dense(latent * 2))
     return encoder
@@ -34,7 +34,7 @@ def create_decoder(output_dims, base_filters=64, layers=2, latent=512):
     for i in range(layers - 1, 0, -1):
         decoder.add(Conv2DTranspose(filters=base_filters * 2**i, kernel_size=(5, 5),
                                     strides=(2, 2), padding='same', use_bias=False, activation='relu'))
-        decoder.add(BatchNormalization(axis=3))
+#         decoder.add(BatchNormalization(axis=3))
     decoder.add(Conv2DTranspose(filters=3, kernel_size=(5, 5),
                                 strides=(2, 2), padding='same', activation='sigmoid'))
     return decoder
