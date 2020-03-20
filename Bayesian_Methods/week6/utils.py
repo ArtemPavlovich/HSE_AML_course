@@ -60,7 +60,6 @@ def create_vae(batch_size, base_filters=128, latent=8,
     Returns compiled Keras model along with encoder and decoder
     """
 
-
     if isinstance(image_size, int):
         image_size = (image_size, image_size)
     x = Input(shape=(image_size[0], image_size[1], 3), batch_size=batch_size)
@@ -99,12 +98,12 @@ def create_vae(batch_size, base_filters=128, latent=8,
 
 
 weights_options = {1:
-    ['https://github.com/ArtemPavlovich/HSE_AML_course/raw/master/Bayesian_Methods/week6/VAE_celeba_img64_filt128_4layers_32lsize_3.h5',
-    'VAE_celeba_img64_filt128_4layers_32lsize_3.h5'],
-    2: ['https://github.com/ArtemPavlovich/HSE_AML_course/raw/master/Bayesian_Methods/week6/VAE_celeba_img64_filt256_4layers_16lsize_2.h5',
-    'VAE_celeba_img64_filt256_4layers_16lsize_2.h5'],
-    3: ['https://github.com/ArtemPavlovich/HSE_AML_course/raw/master/Bayesian_Methods/week6/VAE_celeba_img64_filt128_4layers_8lsize.h5',
-        'VAE_celeba_img64_filt128_4layers_8lsize.h5']}
+                   ['https://github.com/ArtemPavlovich/HSE_AML_course/raw/master/Bayesian_Methods/week6/VAE_celeba_img64_filt128_4layers_32lsize_3.h5',
+                    'VAE_celeba_img64_filt128_4layers_32lsize_3.h5'],
+                   2: ['https://github.com/ArtemPavlovich/HSE_AML_course/raw/master/Bayesian_Methods/week6/VAE_celeba_img64_filt256_4layers_16lsize_2.h5',
+                       'VAE_celeba_img64_filt256_4layers_16lsize_2.h5'],
+                   0: ['https://github.com/ArtemPavlovich/HSE_AML_course/raw/master/Bayesian_Methods/week6/VAE_celeba_img64_filt128_4layers_8lsize.h5',
+                       'VAE_celeba_img64_filt128_4layers_8lsize.h5']}
 
 
 def parse_name(weight_name):
