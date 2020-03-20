@@ -8,7 +8,7 @@ from tensorflow.keras.layers import BatchNormalization, Conv2D, Conv2DTranspose
 from tensorflow.keras.models import Model, Sequential
 
 
-def create_encoder(input_dims, base_filters=64, layers=2, latent=512):
+def create_encoder(input_dims, base_filters=64, layers=2, latent=512, BatchNorm=False):
     w = input_dims[0] // 2**layers
     h = input_dims[1] // 2**layers
     c = base_filters * 2**(layers - 1)
@@ -17,13 +17,14 @@ def create_encoder(input_dims, base_filters=64, layers=2, latent=512):
     for i in range(layers):
         encoder.add(Conv2D(filters=base_filters * 2**i, kernel_size=(5, 5),
                            strides=(2, 2), padding='same', use_bias=False, activation='relu'))
-#         encoder.add(BatchNormalization(axis=3))
+        if BatchNorm:
+            encoder.add(BatchNormalization(axis=3))
     encoder.add(Reshape([w * h * c]))
     encoder.add(Dense(latent * 2))
     return encoder
 
 
-def create_decoder(output_dims, base_filters=64, layers=2, latent=512):
+def create_decoder(output_dims, base_filters=64, layers=2, latent=512, BatchNorm=False):
     w = output_dims[0] // 2**layers
     h = output_dims[1] // 2**layers
     c = base_filters * 2**(layers - 1)
@@ -34,7 +35,8 @@ def create_decoder(output_dims, base_filters=64, layers=2, latent=512):
     for i in range(layers - 1, 0, -1):
         decoder.add(Conv2DTranspose(filters=base_filters * 2**i, kernel_size=(5, 5),
                                     strides=(2, 2), padding='same', use_bias=False, activation='relu'))
-#         decoder.add(BatchNormalization(axis=3))
+        if BatchNorm:
+            decoder.add(BatchNormalization(axis=3))
     decoder.add(Conv2DTranspose(filters=3, kernel_size=(5, 5),
                                 strides=(2, 2), padding='same', activation='sigmoid'))
     return decoder
@@ -49,7 +51,7 @@ def sample(mean_log_var):
 
 
 def create_vae(batch_size, base_filters=128, latent=8,
-               image_size=64, layers=4, reconstruction_weight=1, learning_rate=0.0001):
+               image_size=64, layers=4, BatchNorm=False, reconstruction_weight=1, learning_rate=0.0001):
     """
     Constructs VAE model with given parameters.
     :param batch_size: size of a batch (used for placeholder)
@@ -66,11 +68,13 @@ def create_vae(batch_size, base_filters=128, latent=8,
     encoder = create_encoder([image_size[0], image_size[1], 3],
                              base_filters=base_filters,
                              latent=latent,
-                             layers=layers)
+                             layers=layers,
+                             BatchNorm=BatchNorm)
     decoder = create_decoder([image_size[0], image_size[1], 3],
                              base_filters=base_filters,
                              latent=latent,
-                             layers=layers)
+                             layers=layers,
+                             BatchNorm=BatchNorm)
     mean_log_var = encoder(x)
     mean, log_var = tf.split(mean_log_var, num_or_size_splits=2, axis=1)
     z = Lambda(sample)([mean, log_var])
@@ -112,7 +116,8 @@ def parse_name(weight_name):
     base_filters = int(split[3][4:])
     layers = int(split[4][:-6])
     latent_size = int(split[5][:-5])
-    return image_size, base_filters, layers, latent_size
+    BatchNorm = True if latent_size == 8 else False
+    return image_size, base_filters, layers, latent_size, BatchNorm
 
 
 def download_and_get_params(option=1):
