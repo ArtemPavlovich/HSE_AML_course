@@ -102,8 +102,8 @@ weights_options = {1:
                     'VAE_celeba_img64_filt128_4layers_32lsize_3.h5'],
                    2: ['https://github.com/ArtemPavlovich/HSE_AML_course/raw/master/Bayesian_Methods/week6/VAE_celeba_img64_filt256_4layers_16lsize_2.h5',
                        'VAE_celeba_img64_filt256_4layers_16lsize_2.h5'],
-                   0: ['https://github.com/ArtemPavlovich/HSE_AML_course/raw/master/Bayesian_Methods/week6/VAE_celeba_img64_filt128_4layers_8lsize.h5',
-                       'VAE_celeba_img64_filt128_4layers_8lsize.h5']}
+                   0: ['https://github.com/ArtemPavlovich/HSE_AML_course/raw/master/Bayesian_Methods/week6/VAE_celeba_img64_filt128_4layers_8lsize_1.h5',
+                       'VAE_celeba_img64_filt128_4layers_8lsize_1.h5']}
 
 
 def parse_name(weight_name):
