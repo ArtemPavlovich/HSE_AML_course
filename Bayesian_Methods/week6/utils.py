@@ -100,22 +100,13 @@ def create_vae(batch_size, base_filters=128, latent=8,
     return vae, encoder, decoder
 
 
-weights_options = {1:
-                   ['https://github.com/ArtemPavlovich/HSE_AML_course/raw/master/Bayesian_Methods/week6/VAE_celeba_img64_filt128_4layers_32lsize_3.h5',
-                    'VAE_celeba_img64_filt128_4layers_32lsize_3.h5'],
-                   2: ['https://github.com/ArtemPavlovich/HSE_AML_course/raw/master/Bayesian_Methods/week6/VAE_celeba_img64_filt256_4layers_16lsize_1.h5',
-                       'VAE_celeba_img64_filt256_4layers_16lsize_1.h5'],
-                   0: ['https://github.com/ArtemPavlovich/HSE_AML_course/raw/master/Bayesian_Methods/week6/VAE_celeba_img64_filt128_4layers_8lsize_1.h5',
-                       'VAE_celeba_img64_filt128_4layers_8lsize_1.h5']}
-
-
 def parse_name(weight_name):
     split = weight_name.split('_')
     image_size = int(split[2][3:])
     base_filters = int(split[3][4:])
     layers = int(split[4][:-6])
     latent_size = int(split[5][:-5])
-    BatchNorm = True if latent_size == 8 else False
+    BatchNorm = True if split[6] == 'bnorm' else False
     return image_size, base_filters, layers, latent_size, BatchNorm
 
 
