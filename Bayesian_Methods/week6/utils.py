@@ -1,4 +1,3 @@
-import subprocess
 import numpy as np
 import tensorflow as tf
 import tensorflow.keras as keras
@@ -111,12 +110,8 @@ def parse_name(weight_name):
     return image_size, base_filters, layers, latent_size, BatchNorm
 
 
-def download_and_get_params(option=1):
-    url = weights_options[option][0]
-    filename = weights_options[option][1]
-
+def get_params(filepath):
+    filename = filepath.split('/')[-1]
     params = parse_name(filename)
-
-    subprocess.run(['wget', url, '-O', filename])
 
     return params, filename
